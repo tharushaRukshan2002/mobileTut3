@@ -9,37 +9,49 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
+
+    //Getting the main linear layout which is vertically oriented
+    private lateinit var mainLinearLayout: LinearLayout
+
+    //Liner Layouts will be added to this array
+    private val linearLayoutArr = mutableListOf<LinearLayout>()
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mainLiner: LinearLayout = findViewById(R.id.mainLinear)
-        mainLiner.setBackgroundColor(Color.parseColor("#FF000000"));
+        mainLinearLayout = findViewById(R.id.mainLinear)
+        createRows()
+        linearLayoutArr[2].setBackgroundColor(Color.parseColor("#9E9E9E"));
 
+    }
+
+    private fun createRows(){
         var i = 0
         while (i < 5) {
-            val test = LinearLayout(this)
-            test.orientation = LinearLayout.HORIZONTAL
-            test.layoutParams = ViewGroup.LayoutParams(
+            val childLinearLayout = LinearLayout(this)
+            childLinearLayout.orientation = LinearLayout.HORIZONTAL
+            childLinearLayout.layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
             )
-            test.layoutParams = LinearLayout.LayoutParams(
+            childLinearLayout.layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 1f
             )
-            val marginParam = test.layoutParams as ViewGroup.MarginLayoutParams
+            val marginParam = childLinearLayout.layoutParams as ViewGroup.MarginLayoutParams
             marginParam.setMargins(0,20,0,0)
-            val testParam = test.layoutParams
+            val testParam = childLinearLayout.layoutParams
 
             testParam.width = ViewGroup.LayoutParams.MATCH_PARENT
-            testParam.height = 250
-            test.setBackgroundColor(Color.parseColor("#FF03DAC5"));
-            test.layoutParams = testParam
-            mainLiner.addView(test)
+            childLinearLayout.setBackgroundColor(Color.parseColor("#795548"));
+            childLinearLayout.layoutParams = testParam
+            mainLinearLayout.addView(childLinearLayout)
+            linearLayoutArr.add(childLinearLayout)
             i++
         }
+
     }
 }
